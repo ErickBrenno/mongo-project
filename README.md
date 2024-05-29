@@ -1,2 +1,3 @@
-# mongo-project
-Project - MongoDB
+```console
+docker network create mongo-shard
+```
