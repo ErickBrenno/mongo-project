@@ -185,7 +185,7 @@ db.produtos.createIndex({"id": "hashed"})
 db.filiais.createIndex({"document": "hashed"})
 ```
 
-![b7df2d6a-36e2-44ef-b874-ae8b9bebcce1](https://github.com/JonathanWillian5/MongoDB/assets/89879087/d186eae6-f955-42c8-b9d4-ca2bc2dcd875)
+![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/7a8ce613-00c5-4afc-8dea-86cc435aeece)
 
 > Criamos as fragmentações nas duas collection (produto, filiais)
   - Para colletion produtos criamos um shard do tipo hashed na chave ID.<br />
@@ -195,11 +195,11 @@ db.filiais.createIndex({"document": "hashed"})
 > **Note:** É preciso criar um index na chave a ser fragmentada para conseguir fazer a criação do shard.
 
 ```shell
-sh.shardCollection("supermercados.produtos", {"id": "hashed})
-sh.shardCollection("supermercados.filiais", {"document": "hashed})
+sh.shardCollection("supermercados.produtos", {"id": "hashed"})
+sh.shardCollection("supermercados.filiais", {"document": "hashed"})
 ```
    
-![7d408e3a-842b-462d-a9fd-6c74cf8f9fb3](https://github.com/JonathanWillian5/MongoDB/assets/89879087/a3a4719a-d629-426d-be01-b8a4ebb36320)
+![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/c2d03537-db2e-4de1-8faf-590e4ab6a0f7)
 
 
 # Simulação
@@ -214,7 +214,7 @@ Para nossa estratégica adotamos o método de particionamento horizontal e por f
    
    3 - Gerenciamento de Dados: Facilita o gerenciamento e manutenção dos dados, como backup e recuperação, pois cada partição pode ser tratada separadamente.
 
-![79760ea9-4b40-4588-bac2-644a8ccd8d03](https://github.com/JonathanWillian5/MongoDB/assets/89879087/36b7c18a-0ffc-4199-aae2-d2bb986dc8fd)
+![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/e22cc013-7f83-46f0-ada1-5452f430b96d)
 
 Na imagem acima é possível ver a distribuição realizada entre os shards na colletions produtos utilizando a estratégia de fragmentação se baseando no hashed da chave ID.
 
@@ -223,30 +223,31 @@ Na imagem acima é possível ver a distribuição realizada entre os shards na c
 > **Desempenho:**<br/>
 Para nosso teste de estresse utilizamos um código python, para realizar multiplas consultas, inserções e updates dentro do ambiente.
 
-![f9e13947-e665-4b85-9beb-15b43e5fe7b6](https://github.com/JonathanWillian5/MongoDB/assets/89879087/3f2d36c5-875d-4b3e-9526-ad5ac7f5d6ac)
+![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/19b8b421-c30c-4831-bcf5-352d8f6c592f)
 
 
 >Na imagem abaixo, podemos visualizar como o ambiente se comportou durante as operações realizadas acima.
 
 MONGO:<br/>
-![f88df407-7459-43b4-9ffe-a2c7f9cc6ca1](https://github.com/JonathanWillian5/MongoDB/assets/89879087/8c95e7dc-0979-466a-b0b2-5118eff3e895)<br/>
+![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/40f93e75-fc1c-4178-ab8a-ea24818ff387)<br/>
 CONTAINERS:<br/>
-![ff435965-754f-4a4d-aaf6-6d73c9306806](https://github.com/JonathanWillian5/MongoDB/assets/89879087/1a21eef5-85a9-49dc-b8bb-64316a97cbd4)
+![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/70a09ea9-4c52-4add-bf96-090d32097338)
 
-> **Consulta:**<br/>
+**Consulta:**<br/>
 Consulta buscando as informações sobre o estoque de algumas filiais.<br/>
 
-![b3a8098a-5b62-486e-a940-be6b530e97c0](https://github.com/JonathanWillian5/MongoDB/assets/89879087/d76988bd-49f6-4800-a5e3-48eeb24882c4)
+![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/53075aac-1dec-40d9-ad09-e2f8719b5482)
 
-> **Atualizações:**<br/>
+**Atualizações:**<br/>
 Atualização realizando a alteração da quantidade do inventário de ulgumas filiais.<br/>
 
-![c6c0b856-8cac-4097-8108-a715a814713d](https://github.com/JonathanWillian5/MongoDB/assets/89879087/b4682db7-49b6-4dfc-9f13-25f793808632)
+![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/e7b00e11-2822-490f-b6ab-774f3554b362)
 
-> **Adição:**<br/>
-Realizando a inserçao de novas filiais.<br/>
+**Inserções:**<br/>
+Nesse exemplo, estamos realizando a inserção de algumas Filiais na Collection "filiais".<br/>
 
-![9d4a6820-a147-46f9-a6f3-c54c5086f7e3](https://github.com/JonathanWillian5/MongoDB/assets/89879087/98552c52-e008-478e-a83b-d6798e1d718d)
+![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/28f5bae2-7b32-4213-b997-83d7bd2a3767)
+
 
 
 
