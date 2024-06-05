@@ -73,8 +73,7 @@ rs.initiate(
    }
 )
 ```
-![d4119714-fc2d-4e93-bf0a-e13c66bbb85b](https://github.com/JonathanWillian5/MongoDB/assets/89879087/2b9f03f9-f8e3-4e7c-976c-bada8dc9ed97)
-
+![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/507f7f20-00b3-4966-b82d-152833ea8618)
 
 ### Criando Containers Shards.
 Para esta etapa, vamos configurar três containers que atuaram como shards, cada shards composto por dois nós para formar um conjunto de réplicas. 
@@ -94,7 +93,7 @@ docker run --name mongo-shard2b --net mongo-shard -d mongo mongod --port 27019 -
 docker run --name mongo-shard3a --net mongo-shard -d mongo mongod --port 27020 --shardsvr --replSet shard03
 docker run --name mongo-shard3b --net mongo-shard -d mongo mongod --port 27020 --shardsvr --replSet shard03
 ```
-![85436b4a-d3ee-4f14-a1b9-39226309e9d0](https://github.com/JonathanWillian5/MongoDB/assets/89879087/71383870-5005-42b1-95bb-a39fdd96f488)
+![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/d9903013-1bea-4633-8c35-0563b934f47e)
 
 
 ### Configurando Réplicas Sets Shards.
@@ -115,7 +114,7 @@ rs.initiate(
    }
 )
 ```
-![959dd19e-0b03-45be-bbd3-3bb3fcd80691](https://github.com/JonathanWillian5/MongoDB/assets/89879087/9d6d6ff3-2e6e-4784-8228-859845df29fc)
+![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/3a586f70-3f46-4f9b-83ac-fa2d8961fecc)
 - Shard02
 ```shell
 docker exec -it mongo-shard2a mongo --port 27019
@@ -132,7 +131,7 @@ rs.initiate(
    }
 )
 ```
-![7854265f-f5b2-461c-b1a0-0d924fbcc2af](https://github.com/JonathanWillian5/MongoDB/assets/89879087/b9d7dc2b-e6e5-4e88-9ca9-d18d60e12637)
+![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/f793d367-cdb0-4f9d-ba06-07b25bc97c29)
 - Shard03
 ```shell
 docker exec -it mongo-shard3a mongo --port 27020
@@ -149,7 +148,7 @@ rs.initiate(
    }
 )
 ```
-![bbb26b4f-067b-4ee6-b288-7edb15f4da06](https://github.com/JonathanWillian5/MongoDB/assets/89879087/72974b5b-7c1c-4e1b-bd85-4deb9885e3a9)
+![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/36aa44f2-d527-421c-bc19-becce3ff14be)
 
 
 ### Configurando Roteador
@@ -158,7 +157,7 @@ Nessa etapa iremos criar um container que executa um roteador (mongos) que é o 
 docker run -p 27017:27017 --name mongo-router --net mongo-shard -d mongo mongos --port 27017 --configdb 
 configserver/mongo-config01:27017,mongo-config02:27017,mongo-config03:27017 --bind_ip_all
 ```
-![b6c77739-ffe1-4259-afbb-40b1818d34fe](https://github.com/JonathanWillian5/MongoDB/assets/89879087/7e8c09bd-2fe5-41db-bfd2-502a777981bd)
+![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/88088e04-4199-4512-a319-db68a6516eeb)
 
 
 ### Configurando Cluster Sharding
@@ -173,7 +172,7 @@ sh.addShard("shard02/mongo-shard2b:27019")
 sh.addShard("shard03/mongo-shard3a:27020")
 sh.addShard("shard03/mongo-shard3b:27020")
 ```
-![173bceea-9a42-4789-895d-f7ff96f32697](https://github.com/JonathanWillian5/MongoDB/assets/89879087/a1a3f32e-07c5-4072-9791-555ef346c5da)
+![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/80d4fda7-2749-43b2-a16a-c14e726d36d5)
 
 ### Criação do banco e distribuição entre os shards
 Nessa etapa estamos criando o banco de dados que se chama supermercado, criando um collection para os produtos e uma collection para filiais, o mesmo comando de criação das collections gera um indice para ambas.<br />
