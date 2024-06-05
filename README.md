@@ -160,8 +160,8 @@ configserver/mongo-config01:27017,mongo-config02:27017,mongo-config03:27017 --bi
 ![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/88088e04-4199-4512-a319-db68a6516eeb)
 
 
-### Configurando Cluster Sharding
-Nesta etapa, vamos configurar um cluster de sharding no MongoDB, composto por três shards. 
+### Configurando Sharding
+Nesta etapa, vamos configurar a fragmentação no MongoDB, composto por três shards. 
 Cada shard é formado por um conjunto de réplicas para garantir redundância e alta disponibilidade.
 ```shell
 docker exec -it mongo-router mongo
