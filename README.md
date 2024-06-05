@@ -14,16 +14,21 @@ Estamos projetando um sistema de gerenciamento de estoque para uma cadeia de sup
       ![Flowcharts (1)](https://github.com/ErickBrenno/mongo-project/assets/83048005/348b5839-c2ab-40f6-a29e-80543d903111)
 
 2. **Componentes e Distribuição:**
-   - Roteador (mongos): O roteador é responsável por receber as solicitações de clientes e distribuir as operações aos shards apropriados. Ter um único roteador simplifica a configuração inicial e a manutenção do sistema. Ele também atua como um ponto de entrada centralizado, facilitando a gestão de conexões.
+   - **Roteador (mongos):** O roteador é responsável por receber as solicitações de clientes e distribuir as operações aos shards apropriados. Ter um único roteador simplifica a configuração inicial e a manutenção do sistema. Ele também atua como um ponto de entrada centralizado, facilitando a gestão de conexões.
 
-   - Shards:
+   - **Shards:**
    Optamos por 3 shards, cada um composto por dois membros em um replica set. Cada shard é um subconjunto do banco de dados, e a fragmentação dos dados entre eles permite:
+      - **Distribuição de Carga:** Os dados são distribuídos entre os shards, evitando sobrecarga de um único servidor e melhorando a capacidade de processamento paralelo.
+      - **Alta Disponibilidade:** Os replica sets garantem a replicação de dados. Se um membro de um shard falhar, outro membro pode assumir, assegurando que o serviço continue sem interrupção.
+      - **Escalabilidade Horizontal:** A adição de shards adicionais é uma operação relativamente simples, permitindo a expansão conforme o volume de dados e o tráfego aumentam.
+        
+   - **Servidores de Configurações:** Os 3 servidores de configurações mantêm informações de metadados e a topologia do cluster. A configuração em replica set assegura a consistência e disponibilidade dessas informações essenciais, mesmo em caso de falhas de servidor.
 
-Distribuição de Carga: Os dados são distribuídos entre os shards, evitando sobrecarga de um único servidor e melhorando a capacidade de processamento paralelo.
-Alta Disponibilidade: Os replica sets garantem a replicação de dados. Se um membro de um shard falhar, outro membro pode assumir, assegurando que o serviço continue sem interrupção.
-Escalabilidade Horizontal: A adição de shards adicionais é uma operação relativamente simples, permitindo a expansão conforme o volume de dados e o tráfego aumentam.
-Servidores de Configurações:
-Os 3 servidores de configurações mantêm informações de metadados e a topologia do cluster. A configuração em replica set assegura a consistência e disponibilidade dessas informações essenciais, mesmo em caso de falhas de servidor.
+3. **Fragmentação (Sharding):**
+   A fragmentação foi configurada utilizando um índice hashed para ambas as coleções, “Produtos” e “Filiais”. Essa escolha é justificada pelos seguintes motivos:
+   - ***Distribuição Uniforme:*** Um índice hashed gera uma distribuição quase uniforme dos documentos entre os shards, o que é crucial para evitar pontos de acesso e assegurar que nenhum shard se torne um gargalo de desempenho.
+   - ***Escalabilidade:*** À medida que novas filiais e produtos são adicionados, a carga é distribuída de maneira equilibrada, permitindo que o sistema mantenha um desempenho consistente sem a necessidade de reconfigurações frequentes.
+   - ***Simplicidade na Consulta:*** A fragmentação com base em índices hashed facilita a localização de documentos, pois as consultas podem ser distribuídas eficientemente pelo roteador.
 
 # Configuração do ambiente em MongoDB
 
