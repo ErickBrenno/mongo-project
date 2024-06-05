@@ -202,48 +202,41 @@ sh.shardCollection("supermercados.filiais", {"document": "hashed"})
 ![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/c2d03537-db2e-4de1-8faf-590e4ab6a0f7)
 
 
-# Simulação
-## Implementação da estratégia de particionamento
+## [Simulação]
+### Implementação da Estratégia de Particionamento
 > Com isso é possível garantir uma distribuição balanceada e reduzir a sobrecarga do banco de dados e proporcionar um maior isolamento e segurança dos dados.
 Para nossa estratégica adotamos o método de particionamento horizontal e por fragmentação.
- - Vantagens particionamento horizontal e fragmentado:
-   
-   1 - Escalabilidade: Permite que o banco de dados cresça horizontalmente, adicionando mais servidores para acomodar o aumento de dados e carga de trabalho.
-   
-   2 - Desempenho: Melhora o desempenho ao reduzir a quantidade de dados que cada consulta precisa processar. Isso é especialmente útil em grandes bancos de dados.
-   
-   3 - Gerenciamento de Dados: Facilita o gerenciamento e manutenção dos dados, como backup e recuperação, pois cada partição pode ser tratada separadamente.
 
 ![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/e22cc013-7f83-46f0-ada1-5452f430b96d)
 
 Na imagem acima é possível ver a distribuição realizada entre os shards na colletions produtos utilizando a estratégia de fragmentação se baseando no hashed da chave ID.
 
-# Teste de funcionamento e desempenho do ambiente
+### Teste de Funcionamento e Desempenho do Ambiente
 
-> **Desempenho:**<br/>
+**Desempenho:**<br/>
 Para nosso teste de estresse utilizamos um código python, para realizar multiplas consultas, inserções e updates dentro do ambiente.
 
 ![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/19b8b421-c30c-4831-bcf5-352d8f6c592f)
 
 
->Na imagem abaixo, podemos visualizar como o ambiente se comportou durante as operações realizadas acima.
+Na imagem abaixo, podemos visualizar como o ambiente se comportou durante as operações realizadas acima.
 
-MONGO:<br/>
-![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/40f93e75-fc1c-4178-ab8a-ea24818ff387)<br/>
-CONTAINERS:<br/>
+MongoDB:
+![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/40f93e75-fc1c-4178-ab8a-ea24818ff387)
+Containers:
 ![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/70a09ea9-4c52-4add-bf96-090d32097338)
 
-**Consulta:**<br/>
-Consulta buscando as informações sobre o estoque de algumas filiais.<br/>
+**Execução de Consultas:**<br/>
+Nesse exemplo, estamos realizando uma consulta, buscando as informações sobre o estoque de alguns produtos, para determinadas Filiais .<br/>
 
 ![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/53075aac-1dec-40d9-ad09-e2f8719b5482)
 
-**Atualizações:**<br/>
-Atualização realizando a alteração da quantidade do inventário de ulgumas filiais.<br/>
+**Execução de Atualizações:**<br/>
+Nesse exemplo, estamos realizando a alteração da quantidade do inventário de alguns produtos, para certas filiais.<br/>
 
 ![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/e7b00e11-2822-490f-b6ab-774f3554b362)
 
-**Inserções:**<br/>
+**Execução de Inserções:**<br/>
 Nesse exemplo, estamos realizando a inserção de algumas Filiais na Collection "filiais".<br/>
 
 ![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/28f5bae2-7b32-4213-b997-83d7bd2a3767)
