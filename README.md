@@ -1,5 +1,9 @@
 # Projeto: Sistema de Gerenciamento de Estoque para Cadeia de Supermercados
 
+## [Membros do Projeto]
+- Erick Brenno Domingues dos Santos
+- Jonathan Willian do Nascimento
+
 ## [Cenário]
 Estamos projetando um sistema de gerenciamento de estoque para uma cadeia de supermercados com várias filiais espalhadas por diferentes cidades.
 Nossa arquitetura precisa ser capaz de lidar com um grande volume de dados, garantir a consulta e estoque e atualizações no inventário.
@@ -174,7 +178,7 @@ sh.addShard("shard03/mongo-shard3b:27020")
 ```
 ![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/80d4fda7-2749-43b2-a16a-c14e726d36d5)
 
-### Criação do banco e distribuição entre os shards
+## [Criação do Banco e Distribuição Entre os Shards]
 Nessa etapa estamos criando o banco de dados que se chama supermercado, criando um collection para os produtos e uma collection para filiais, o mesmo comando de criação das collections gera um indice para ambas.<br />
  - Para colletion produtos criamos um index do tipo hashed na chave ID.<br />
  - Para a collection filiais criamos um index do tipo hashed na chave document.<br />
@@ -187,7 +191,7 @@ db.filiais.createIndex({"document": "hashed"})
 
 ![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/7a8ce613-00c5-4afc-8dea-86cc435aeece)
 
-> Criamos as fragmentações nas duas collection (produto, filiais)
+### Criando as Fragmentações nas Duas Collections [produto, filiais]
   - Para colletion produtos criamos um shard do tipo hashed na chave ID.<br />
   - Para a collection filiais criamos um shard do tipo hashed na chave document.<br />
 
@@ -204,14 +208,13 @@ sh.shardCollection("supermercados.filiais", {"document": "hashed"})
 
 ## [Simulação]
 ### Implementação da Estratégia de Particionamento
-> Com isso é possível garantir uma distribuição balanceada e reduzir a sobrecarga do banco de dados e proporcionar um maior isolamento e segurança dos dados.
-Para nossa estratégica adotamos o método de particionamento horizontal e por fragmentação.
+Com isso é possível garantir uma distribuição balanceada e reduzir a sobrecarga do banco de dados e proporcionar um maior isolamento e segurança dos dados.
 
 ![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/e22cc013-7f83-46f0-ada1-5452f430b96d)
 
-Na imagem acima é possível ver a distribuição realizada entre os shards na colletions produtos utilizando a estratégia de fragmentação se baseando no hashed da chave ID.
+Na imagem acima é possível ver a distribuição realizada entre os shards na colletion produtos, utilizando a estratégia de fragmentação se baseando no hashed da chave ID.
 
-### Teste de Funcionamento e Desempenho do Ambiente
+## [Teste de Funcionamento e Desempenho do Ambiente]
 
 **Desempenho:**<br/>
 Para nosso teste de estresse utilizamos um código python, para realizar multiplas consultas, inserções e updates dentro do ambiente.
@@ -236,8 +239,14 @@ Nesse exemplo, estamos realizando a alteração da quantidade do inventário de 
 
 ![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/e7b00e11-2822-490f-b6ab-774f3554b362)
 
-**Execução de Inserções:**<br/>
+## [Execução de Inserção de novas Filiais]
 Nesse exemplo, estamos realizando a inserção de algumas Filiais na Collection "filiais".<br/>
+
+Nós adotamos uma estratégia, se baseando em um unico banco de dados "supermercados", criando uma collection "filiais".
+Conforme novas filiais vão entrando, basta realizar o cadastro delas na collection correspondente, assim, não precisamos nós preucupar com a arquitetura sempre que uma nova Filial for adicionada.
+
+Quando falamos de desempenho, conforme nosso banco vai crescendo, iremos incluindo novos Shards, para que a aplicação não seja impactada.
+
 
 ![image](https://github.com/ErickBrenno/mongo-project/assets/83048005/28f5bae2-7b32-4213-b997-83d7bd2a3767)
 
